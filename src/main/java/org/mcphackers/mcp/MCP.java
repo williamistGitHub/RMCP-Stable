@@ -1,27 +1,16 @@
 package org.mcphackers.mcp;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.mcphackers.mcp.plugin.MCPPlugin;
-import org.mcphackers.mcp.plugin.MCPPlugin.MCPEvent;
-import org.mcphackers.mcp.plugin.MCPPlugin.TaskEvent;
 import org.mcphackers.mcp.tasks.Task;
 import org.mcphackers.mcp.tasks.Task.Side;
-import org.mcphackers.mcp.tasks.TaskStaged;
 import org.mcphackers.mcp.tasks.mode.TaskMode;
 import org.mcphackers.mcp.tasks.mode.TaskParameter;
-import org.mcphackers.mcp.tools.ClassUtils;
-import org.mcphackers.mcp.tools.FileUtil;
 
 public abstract class MCP {
 
@@ -30,14 +19,7 @@ public abstract class MCP {
 	public static final String REPO = "williamistGitHub/RMCP-Stable";
 	public static final String GITHUB_URL = "https://github.com/" + REPO;
 
-	private static final Map<String, MCPPlugin> plugins = new HashMap<>();
-
-	static {
-		loadPlugins();
-	}
-
 	protected MCP() {
-		triggerEvent(MCPEvent.ENV_STARTUP);
 		Update.attemptToDeleteUpdateJar();
 	}
 
@@ -72,7 +54,6 @@ public abstract class MCP {
 		if(enableProgressBars) setProgressBars(performedTasks, mode);
 		ExecutorService pool = Executors.newFixedThreadPool(2);
 		setActive(false);
-		triggerEvent(MCPEvent.STARTED_TASKS);
 
 		AtomicInteger result1 = new AtomicInteger(Task.INFO);
 
@@ -113,7 +94,7 @@ public abstract class MCP {
 		for(String msg : msgs) {
 			log(msg);
 		}
-		triggerEvent(MCPEvent.FINISHED_TASKS);
+
 		if(completionMsg) {
 			String[] msgs2 = {"Finished successfully!", "Finished with warnings!", "Finished with errors!"};
 			showMessage(mode.getFullName(), msgs2[result], result);
@@ -162,53 +143,6 @@ public abstract class MCP {
 		if(value != null) {
 			if(getOptions().safeSetParameter(param, value)) return;
 			showMessage(param.desc, "Invalid value!", Task.ERROR);
-		}
-	}
-
-	private final static void loadPlugins() {
-		Path pluginsDir = Paths.get("plugins");
-		if(Files.exists(pluginsDir)) {
-			List<Path> jars = new ArrayList<>();
-			try {
-				FileUtil.collectJars(pluginsDir, jars);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			try {
-				for(Path p : jars) {
-					List<Class<MCPPlugin>> classes = ClassUtils.getClasses(p, MCPPlugin.class);
-					for(Class<MCPPlugin> cls : classes) {
-						if(!ClassUtils.isClassAbstract(cls)) {
-							MCPPlugin plugin = cls.newInstance();
-							plugin.init();
-							plugins.put(plugin.pluginId() + plugin.hashCode(), plugin);
-						}
-						else {
-							System.err.println("Incompatible plugin found: " + cls.getName());
-						}
-					}
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public final void setPluginOverrides(TaskStaged task) {
-		for(Map.Entry<String, MCPPlugin> entry : plugins.entrySet()) {
-			entry.getValue().setTaskOverrides(task);
-		}
-	}
-
-	public final void triggerEvent(MCPEvent event) {
-		for(Map.Entry<String, MCPPlugin> entry : plugins.entrySet()) {
-			entry.getValue().onMCPEvent(event, this);
-		}
-	}
-
-	public final void triggerTaskEvent(TaskEvent event, Task task) {
-		for(Map.Entry<String, MCPPlugin> entry : plugins.entrySet()) {
-			entry.getValue().onTaskEvent(event, task);
 		}
 	}
 }

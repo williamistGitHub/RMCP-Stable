@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.mcphackers.mcp.plugin.MCPPlugin.TaskEvent;
 import org.mcphackers.mcp.MCP;
 
 public abstract class Task implements ProgressListener, TaskRunnable {
@@ -54,13 +53,7 @@ public abstract class Task implements ProgressListener, TaskRunnable {
 	}
 
 	public final void performTask() throws Exception {
-		triggerEvent(TaskEvent.PRE_TASK);
 		doTask();
-		triggerEvent(TaskEvent.POST_TASK);
-	}
-	
-	protected final void triggerEvent(TaskEvent event) {
-		mcp.triggerTaskEvent(event, this);
 	}
 	
 	protected final void addMessage(String msg, byte logLevel) {

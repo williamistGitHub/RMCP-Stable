@@ -1,7 +1,6 @@
 package org.mcphackers.mcp.tasks;
 
 import org.mcphackers.mcp.MCP;
-import org.mcphackers.mcp.plugin.MCPPlugin.TaskEvent;
 
 public abstract class TaskStaged extends Task {
 	
@@ -22,14 +21,12 @@ public abstract class TaskStaged extends Task {
 	
 	protected final void step() {
 		step++;
-		triggerEvent(TaskEvent.TASK_STEP);
 	}
 	
 	protected abstract Stage[] setStages();
 	
 	public void doTask() throws Exception {
 		stages = setStages();
-		mcp.setPluginOverrides(this);
 		while(step < stages.length) {
 			setProgress(stages[step].stageName, stages[step].completion);
 			stages[step].doTask();
