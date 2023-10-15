@@ -68,7 +68,7 @@ public class MCPFrame extends JFrame {
 	}
 	
 	public MCPFrame(MainGUI mcp) {
-		super("RetroMCP " + MCP.VERSION);
+		super(MCP.NAME + " " + MCP.VERSION);
 		this.mcp = mcp;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setIconImage(ICON);

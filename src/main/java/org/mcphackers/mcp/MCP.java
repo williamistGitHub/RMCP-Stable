@@ -25,8 +25,10 @@ import org.mcphackers.mcp.tools.FileUtil;
 
 public abstract class MCP {
 
-	public static final String VERSION = "v1.0-pre3";
-	public static final String githubURL = "https://github.com/MCPHackers/RetroMCP-Java";
+	public static final String NAME = "RMCP-Stable";
+	public static final String VERSION = "r0";
+	public static final String REPO = "williamistGitHub/RMCP-Stable";
+	public static final String GITHUB_URL = "https://github.com/" + REPO;
 
 	private static final Map<String, MCPPlugin> plugins = new HashMap<>();
 

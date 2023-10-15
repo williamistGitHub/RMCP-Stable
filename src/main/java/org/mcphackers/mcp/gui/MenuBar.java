@@ -117,8 +117,8 @@ public class MenuBar extends JMenuBar {
 		add(menuOptions);
 		JMenuItem githubItem = new JMenuItem("Github Page");
 		JMenuItem wiki = new JMenuItem("Wiki");
-		githubItem.addActionListener(e -> Util.openUrl(MCP.githubURL));
-		wiki.addActionListener(e -> Util.openUrl(MCP.githubURL + "/wiki"));
+		githubItem.addActionListener(e -> Util.openUrl(MCP.GITHUB_URL));
+		wiki.addActionListener(e -> Util.openUrl(MCP.GITHUB_URL + "/wiki"));
 		this.helpMenu.add(githubItem);
 		this.helpMenu.add(wiki);
 		add(helpMenu);

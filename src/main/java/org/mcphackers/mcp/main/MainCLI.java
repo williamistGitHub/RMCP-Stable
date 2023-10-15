@@ -62,7 +62,7 @@ public class MainCLI extends MCP {
 	public MainCLI(String[] args) {
 
 		options.resetDefaults();
-		log("RetroMCP " + MCP.VERSION);
+		log(MCP.NAME + " " + MCP.VERSION);
 
 		boolean startedWithNoParams = false;
 		boolean exit = false;

@@ -55,7 +55,7 @@ runShadow {
 }
 
 task decompile(type: JavaExec) {
-    group 'RetroMCP-Java'
+    group rootProject.name
 
     classpath = sourceSets.main.runtimeClasspath
     mainClass.set(mainClassName)
@@ -64,7 +64,7 @@ task decompile(type: JavaExec) {
 }
 
 task startClient(type: JavaExec) {
-    group 'RetroMCP-Java'
+    group rootProject.name
 
     classpath = sourceSets.main.runtimeClasspath
     mainClass.set(mainClassName)
@@ -73,7 +73,7 @@ task startClient(type: JavaExec) {
 }
 
 task startServer(type: JavaExec) {
-    group 'RetroMCP-Java'
+    group rootProject.name
 
     classpath = sourceSets.main.runtimeClasspath
     mainClass.set(mainClassName)
@@ -82,7 +82,7 @@ task startServer(type: JavaExec) {
 }
 
 task recompile(type: JavaExec) {
-    group 'RetroMCP-Java'
+    group rootProject.name
 
     classpath = sourceSets.main.runtimeClasspath
     mainClass.set(mainClassName)
@@ -91,7 +91,7 @@ task recompile(type: JavaExec) {
 }
 
 task reobfuscate(type: JavaExec) {
-    group 'RetroMCP-Java'
+    group rootProject.name
 
     classpath = sourceSets.main.runtimeClasspath
     mainClass.set(mainClassName)
@@ -100,7 +100,7 @@ task reobfuscate(type: JavaExec) {
 }
 
 task update_md5(type: JavaExec) {
-    group 'RetroMCP-Java'
+    group rootProject.name
 
     classpath = sourceSets.main.runtimeClasspath
     mainClass.set(mainClassName)
@@ -109,7 +109,7 @@ task update_md5(type: JavaExec) {
 }
 
 task setup(type: JavaExec) {
-    group = 'RetroMCP-Java'
+    group = rootProject.name
     standardInput = System.in
 
     classpath = sourceSets.main.runtimeClasspath
@@ -119,7 +119,7 @@ task setup(type: JavaExec) {
 }
 
 task cleanup(type: JavaExec) {
-    group = 'RetroMCP-Java'
+    group = rootProject.name
     standardInput = System.in
 
     classpath = sourceSets.main.runtimeClasspath
@@ -129,7 +129,7 @@ task cleanup(type: JavaExec) {
 }
 
 task createpatch(type: JavaExec) {
-    group = 'RetroMCP-Java'
+    group = rootProject.name
     standardInput = System.in
 
     classpath = sourceSets.main.runtimeClasspath
