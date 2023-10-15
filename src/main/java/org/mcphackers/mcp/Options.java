@@ -98,7 +98,7 @@ public class Options {
 			value = new String[] {"paulscode", "com/jcraft", "de/jarnbjo", "isom"};
 			break;
 		case INDENTATION_STRING:
-			value = "\t";
+			value = "    ";
 			break;
 		case RUN_ARGS:
 			value = new String[] {"-Xms1024M", "-Xmx1024M", "-Djava.util.Arrays.useLegacyMergeSort=true"};
