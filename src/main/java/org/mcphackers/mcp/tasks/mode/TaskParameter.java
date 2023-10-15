@@ -16,7 +16,8 @@ public enum TaskParameter {
 	SOURCE_VERSION("source", "Set a specific source version", Integer.class),
 	TARGET_VERSION("target", "Set a specific target version", Integer.class),
 	JAVA_HOME("javahome", "Set JAVA_HOME used for compiling", String.class),
-	DECOMPILE_OVERRIDE("override", "Decompile @Override", Boolean.class);
+	DECOMPILE_OVERRIDE("override", "Decompile @Override", Boolean.class),
+	KEEP_RESOURCES("keep_resources", "Keep Resources", Boolean.class);
 
 	public final String desc;
 	public final String name;

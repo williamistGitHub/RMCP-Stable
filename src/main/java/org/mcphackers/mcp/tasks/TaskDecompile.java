@@ -149,7 +149,10 @@ public class TaskDecompile extends TaskStaged {
 			stage("Extracting sources", 84,
 			() -> {
 					FileUtil.createDirectories(MCPPaths.get(mcp, MCPPaths.SRC));
-					FileUtil.unzipByExtension(srcZip, ffOut, ".java");
+					if (!mcp.getOptions().getBooleanParameter(TaskParameter.KEEP_RESOURCES))
+						FileUtil.unzipByExtension(srcZip, ffOut, ".java");
+					else
+						FileUtil.unzip(srcZip, ffOut, entry -> !entry.getName().equals("null"));
 			}),
 			stage("Replacing constants", 86,
 			() -> {

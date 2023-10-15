@@ -88,6 +88,7 @@ public class Options {
 		case FULL_BUILD:
 		case RUN_BUILD:
 		case OBFUSCATION:
+		case KEEP_RESOURCES:
 			value = false;
 			break;
 		case DECOMPILE_OVERRIDE:
