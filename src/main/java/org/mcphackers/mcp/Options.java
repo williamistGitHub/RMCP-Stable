@@ -88,9 +88,9 @@ public class Options {
 		case FULL_BUILD:
 		case RUN_BUILD:
 		case OBFUSCATION:
-		case DECOMPILE_OVERRIDE:
 			value = false;
 			break;
+		case DECOMPILE_OVERRIDE:
 		case PATCHES:
 			value = true;
 			break;
