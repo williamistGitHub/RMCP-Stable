@@ -193,7 +193,7 @@ public class MainGUI extends MCP {
 			ActionListener defaultActionListener = event -> operateOnThread(() -> {
 				int response = 0;
 				if(TaskMode.RECOMPILE.isAvailable(this, getSide())) {
-					response = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete sources and decompile again?", "Confirm Action", JOptionPane.YES_NO_OPTION);
+					response = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete sources and decompile again?\n<html><h3>THIS WILL DELETE ALL YOUR PROGRESS!</h3></html>", "Confirm Action", JOptionPane.YES_NO_OPTION);
 				}
 				if(response == 0) {
 					performTask(TaskMode.DECOMPILE, getSide());
@@ -203,7 +203,7 @@ public class MainGUI extends MCP {
 		}
 		else if(task == TaskMode.UPDATE_MD5) {
 			ActionListener defaultActionListener = event -> operateOnThread(() -> {
-				int response = JOptionPane.showConfirmDialog(frame, "Are you sure you want to regenerate original hashes?", "Confirm Action", JOptionPane.YES_NO_OPTION);
+				int response = JOptionPane.showConfirmDialog(frame, "Are you sure you want to regenerate original hashes?\n<html><h3>ONLY DO THIS IF YOU KNOW WHAT YOU ARE DOING!</h3></html>\nContinuing will wipe all memory of modified classes, making builds prone to ClassNotFoundExceptions & incompatibility.", "Confirm Action", JOptionPane.YES_NO_OPTION);
 				if(response == 0) {
 					performTask(task, getSide());
 				}
