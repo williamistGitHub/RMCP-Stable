@@ -19,6 +19,7 @@ public class Decompiler implements IBytecodeProvider {
 	private final Path source;
 	private final Path destination;
 	private final Map<String, Object> mapOptions = new HashMap<>();
+	private final ZipFileCache openZips = new ZipFileCache();
 
 	public Decompiler(ProgressListener listener, Path source, Path out, Path javadocs, String ind, boolean override) {
 		this.source = source;
@@ -40,17 +41,16 @@ public class Decompiler implements IBytecodeProvider {
 
 	@Override
 	public byte[] getBytecode(String externalPath, String internalPath) throws IOException {
-		File file = new File(externalPath);
 		if (internalPath == null) {
+			File file = new File(externalPath);
 			return InterpreterUtil.getBytes(file);
 		} else {
-			try (ZipFile archive = new ZipFile(file)) {
-				ZipEntry entry = archive.getEntry(internalPath);
-				if (entry == null) {
-					throw new IOException("Entry not found: " + internalPath);
-				}
-				return InterpreterUtil.getBytes(archive, entry);
+			final ZipFile archive = this.openZips.get(externalPath);
+			final ZipEntry entry = archive.getEntry(internalPath);
+			if (entry == null) {
+				throw new IOException("Entry not found: " + internalPath);
 			}
+			return InterpreterUtil.getBytes(archive, entry);
 		}
 	}
 }
