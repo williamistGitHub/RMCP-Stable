@@ -15,7 +15,7 @@ import org.mcphackers.mcp.tasks.mode.TaskParameter;
 public abstract class MCP {
 
 	public static final String NAME = "RMCP-Stable";
-	public static final String VERSION = "r0";
+	public static final String VERSION = "r1";
 	public static final String REPO = "williamistGitHub/RMCP-Stable";
 	public static final String GITHUB_URL = "https://github.com/" + REPO;
 
