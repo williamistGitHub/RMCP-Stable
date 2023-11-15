@@ -17,12 +17,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
 
 import org.mcphackers.mcp.MCP;
 import org.mcphackers.mcp.MCPPaths;
 import org.mcphackers.mcp.Options;
+import org.mcphackers.mcp.gui.DarkTheme;
 import org.mcphackers.mcp.gui.MCPFrame;
 import org.mcphackers.mcp.gui.TaskButton;
 import org.mcphackers.mcp.tasks.Task;
@@ -52,6 +54,7 @@ public class MainGUI extends MCP {
 		workingDir = dir;
 		options = new Options(MCPPaths.get(this, "options.cfg"));
 		JavaCompiler c = ToolProvider.getSystemJavaCompiler();
+		MetalLookAndFeel.setCurrentTheme(new DarkTheme());
 		if (c == null) {
 			JOptionPane.showMessageDialog(null, "Java Development Kit is required to recompile!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
