@@ -30,6 +30,7 @@ import org.mcphackers.mcp.gui.TaskButton;
 import org.mcphackers.mcp.tasks.Task;
 import org.mcphackers.mcp.tasks.Task.Side;
 import org.mcphackers.mcp.tasks.mode.TaskMode;
+import org.mcphackers.mcp.tools.project.ProjectConverter;
 
 public class MainGUI extends MCP {
 	public String currentVersion;
@@ -58,6 +59,9 @@ public class MainGUI extends MCP {
 		if (c == null) {
 			JOptionPane.showMessageDialog(null, "Java Development Kit is required to recompile!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
+		if (ProjectConverter.convert(this)) {
+			JOptionPane.showMessageDialog(null, "Your project has been upgraded to a supported format.\n\nA backup of the old project was saved in a zip file in case you ever need it.", "Notice", JOptionPane.INFORMATION_MESSAGE);
+		}
 		frame = new MCPFrame(this);
 	}
 	
@@ -67,16 +71,21 @@ public class MainGUI extends MCP {
 	
 	@Override
 	public void setProgressBars(List<Task> tasks, TaskMode mode) {
-		frame.setProgressBars(tasks, mode);
+		if (frame != null)
+			frame.setProgressBars(tasks, mode);
 	}
 
 	@Override
 	public void clearProgressBars() {
-		frame.resetProgressBars();
+		if (frame != null)
+			frame.resetProgressBars();
 	}
 
 	public void setActive(boolean active) {
 		isActive = active;
+		if (frame == null)
+			return;
+
 		if(active) {
 			frame.updateButtonState();
 		}
@@ -102,12 +111,14 @@ public class MainGUI extends MCP {
 
 	@Override
 	public void setProgress(int side, String progressMessage) {
-		frame.setProgress(side, progressMessage);
+		if (frame != null)
+			frame.setProgress(side, progressMessage);
 	}
 
 	@Override
 	public void setProgress(int side, int progress) {
-		frame.setProgress(side, progress);
+		if (frame != null)
+			frame.setProgress(side, progress);
 	}
 
 	@Override
@@ -141,7 +152,8 @@ public class MainGUI extends MCP {
 	@Override
 	public void setCurrentVersion(String version) {
 		currentVersion = version;
-		frame.setCurrentVersion(version);
+		if (frame != null)
+			frame.setCurrentVersion(version);
 	}
 
 	@Override

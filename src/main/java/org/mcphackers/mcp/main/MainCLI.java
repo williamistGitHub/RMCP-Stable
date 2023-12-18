@@ -25,6 +25,7 @@ import org.mcphackers.mcp.tasks.mode.TaskMode;
 import org.mcphackers.mcp.tasks.mode.TaskParameter;
 import org.mcphackers.mcp.tools.Util;
 import org.mcphackers.mcp.tools.VersionsParser;
+import org.mcphackers.mcp.tools.project.ProjectConverter;
 
 public class MainCLI extends MCP {
 	private static final boolean FORCE_CONSOLE = false;
@@ -90,6 +91,11 @@ public class MainCLI extends MCP {
 			if(version != null) log(version);
 			log(new Ansi().fgDefault().a("Enter a command to execute:").toString());
 		}
+
+		if (ProjectConverter.convert(this)) {
+			log(new Ansi().fgBrightYellow().bold().a("NOTICE: ").fgBrightGreen().boldOff().a("Your project file has been upgraded to a supported format. A backup of the old project was saved in a zip file in case you ever need it.").fgDefault().toString());
+		}
+
 		int executeTimes = 0;
 		while (startedWithNoParams && !exit || !startedWithNoParams && executeTimes < 1) {
 			while (args.length < 1) {
