@@ -3,13 +3,7 @@ package org.mcphackers.mcp.main;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
+import java.util.*;
 
 import javax.tools.JavaCompiler;
 import javax.tools.ToolProvider;
@@ -49,13 +43,16 @@ public class MainCLI extends MCP {
 	private String[] progressBarNames;
 
 	public static void main(String[] args) throws Exception {
-		if(System.console() != null || FORCE_CONSOLE) {
+		boolean forceConsole = args.length >= 1 && args[0].equals("--force-console");
+		if(System.console() != null || FORCE_CONSOLE || forceConsole) {
 			AnsiConsole.systemInstall();
-			new MainCLI(args);
+			if (forceConsole)
+				new MainCLI(Arrays.copyOfRange(args, 1, args.length));
+			else
+				new MainCLI(args);
 		}
 		else {
 			MainGUI.main(args);
-			return;
 		}
 	}
 	
