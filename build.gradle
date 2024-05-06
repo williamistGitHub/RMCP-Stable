@@ -7,7 +7,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 mainClassName = 'org.mcphackers.mcp.main.MainCLI'
-version = 'r1'
+version = 'r1.1'
 
 repositories {
     mavenCentral()
